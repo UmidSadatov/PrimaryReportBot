@@ -139,13 +139,13 @@ def make_report_excel(report_dict, sum_numbers, new_file_name):
             ws[f'A{row}'] = group
             ws[f'A{row}'].fill = yellow_fill
 
-            ws[f'A{row}'].border = bold_border
-            ws[f'B{row}'].border = bold_border
-            ws[f'C{row}'].border = bold_border
-            ws[f'D{row}'].border = bold_border
-            ws[f'E{row}'].border = bold_border
-            ws[f'F{row}'].border = bold_border
-            ws[f'G{row}'].border = bold_border
+            ws[f'A{row}'].border = thin_border
+            ws[f'B{row}'].border = thin_border
+            ws[f'C{row}'].border = thin_border
+            ws[f'D{row}'].border = thin_border
+            ws[f'E{row}'].border = thin_border
+            ws[f'F{row}'].border = thin_border
+            ws[f'G{row}'].border = thin_border
 
             ws[f'A{row}'].font = Font(bold=True)
             ws[f'A{row}'].alignment = Alignment(horizontal='center')

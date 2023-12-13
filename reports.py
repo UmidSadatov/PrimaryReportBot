@@ -801,61 +801,61 @@ def make_report_file(*original_report_files: str, new_file_name):
     all_exception_names = []
     none_sample_files = []
     for report_file in original_report_files:
-        # try:
-        report = OriginalReport(report_file)
-        if report.sample is None:
-            none_sample_files.append(report_file)
-        else:
-            new_report_dict, exception_names = \
-                report.get_report_dict()
-            all_exception_names += \
-                list(set(exception_names))
-            print(new_report_dict)
-
-            for group in new_report_dict:
-                if group not in all_reports_dict['Total']:
-                    all_reports_dict['Total'][group] = {}
-
-                for name in new_report_dict[group]:
-                    if name not in all_reports_dict['Total'][group]:
-                        all_reports_dict['Total'][group][name] = {}
-                        for kw in new_report_dict[group][name]:
-                            all_reports_dict['Total'][group][name][kw] = \
-                                new_report_dict[group][name][kw]
-                            sum_numbers['Total'][kw] = \
-                                new_report_dict[group][name][kw]
-                    else:
-                        for kw in new_report_dict[group][name]:
-                            all_reports_dict['Total'][group][name][kw] += \
-                                new_report_dict[group][name][kw]
-                            sum_numbers['Total'][kw] += \
-                                new_report_dict[group][name][kw]
-
-            if report.sample not in all_reports_dict:
-                all_reports_dict[report.sample] = {}
-                sum_numbers[report.sample] = {}
-                for group in new_report_dict:
-                    all_reports_dict[report.sample][group] = {}
-                    for name in new_report_dict[group]:
-                        all_reports_dict[report.sample][group][name] = {}
-                        for kw in new_report_dict[group][name]:
-                            all_reports_dict[report.sample] \
-                                [group][name][kw] = \
-                                new_report_dict[group][name][kw]
-                            sum_numbers[report.sample][kw] = \
-                                new_report_dict[group][name][kw]
+        try:
+            report = OriginalReport(report_file)
+            if report.sample is None:
+                none_sample_files.append(report_file)
             else:
-                for group in new_report_dict:
-                    for name in new_report_dict[group]:
-                        for kw in new_report_dict[group][name]:
-                            all_reports_dict[report.sample][group][name] \
-                                [kw] += new_report_dict[group][name][kw]
-                            sum_numbers[report.sample][kw] += \
-                                new_report_dict[group][name][kw]
+                new_report_dict, exception_names = \
+                    report.get_report_dict()
+                all_exception_names += \
+                    list(set(exception_names))
+                print(new_report_dict)
 
-        # except Exception as err:
-        #     print(report_file, 'Exception: ', err)
-        #     none_sample_files.append(report_file)
+                for group in new_report_dict:
+                    if group not in all_reports_dict['Total']:
+                        all_reports_dict['Total'][group] = {}
+
+                    for name in new_report_dict[group]:
+                        if name not in all_reports_dict['Total'][group]:
+                            all_reports_dict['Total'][group][name] = {}
+                            for kw in new_report_dict[group][name]:
+                                all_reports_dict['Total'][group][name][kw] = \
+                                    new_report_dict[group][name][kw]
+                                sum_numbers['Total'][kw] = \
+                                    new_report_dict[group][name][kw]
+                        else:
+                            for kw in new_report_dict[group][name]:
+                                all_reports_dict['Total'][group][name][kw] += \
+                                    new_report_dict[group][name][kw]
+                                sum_numbers['Total'][kw] += \
+                                    new_report_dict[group][name][kw]
+
+                if report.sample not in all_reports_dict:
+                    all_reports_dict[report.sample] = {}
+                    sum_numbers[report.sample] = {}
+                    for group in new_report_dict:
+                        all_reports_dict[report.sample][group] = {}
+                        for name in new_report_dict[group]:
+                            all_reports_dict[report.sample][group][name] = {}
+                            for kw in new_report_dict[group][name]:
+                                all_reports_dict[report.sample] \
+                                    [group][name][kw] = \
+                                    new_report_dict[group][name][kw]
+                                sum_numbers[report.sample][kw] = \
+                                    new_report_dict[group][name][kw]
+                else:
+                    for group in new_report_dict:
+                        for name in new_report_dict[group]:
+                            for kw in new_report_dict[group][name]:
+                                all_reports_dict[report.sample][group][name] \
+                                    [kw] += new_report_dict[group][name][kw]
+                                sum_numbers[report.sample][kw] += \
+                                    new_report_dict[group][name][kw]
+
+        except Exception as err:
+            print(report_file, 'Exception: ', err)
+            none_sample_files.append(report_file)
 
     print(all_reports_dict)
 
@@ -870,17 +870,3 @@ def make_report_file(*original_report_files: str, new_file_name):
         all_reports_dict, sum_numbers, new_file_name
     )
     return all_exception_names, none_sample_files
-
-# report1 = OriginalReport('Sorrento.xlsx')
-# report2 = OriginalReport('Отчет Сорренто сент.xlsx')
-# report3 = OriginalReport('Alfa Wassermann.xlsx')
-#
-
-#
-# print(make_report_file('Интеллия.xls',
-#                        'Генекс фарма остатка.xlsx',
-#                        new_file_name='MYREPORT.xlsx'))
-
-
-# report_dict = OriginalReport('Report1 11102023094352.xls').get_report_dict()
-# print(report_dict)
